@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reducer from '../reducers';
 import Event from './Event'
 
-function App() {
+const App = () => {
 
   const [state, dispatch] = useReducer(reducer, []);
   const [title, setTitle] = useState('');
@@ -22,6 +22,18 @@ function App() {
     setBody('');
   }
 
+  const deleteAllEvents = e => {
+    e.preventDefault();
+    const result = window.confirm('全てのイベントを本当に削除しても良いですか？');
+    if (result)
+    dispatch({
+      type: 'DELETE_ALL_EVENTS'
+    })
+  }
+
+  const unCreatable = title === "" || body === "";
+  const unDeletableAll = state.length === 0;
+
   return (
     <div className="container-fruid">
       <h4>イベント作成フォーム</h4>
@@ -38,9 +50,8 @@ function App() {
           {/* labelのhtmlForと、inputタグのidを同じ内容にすることで、labelをクリックすると、inputタグをフォーカスさせられる。*/}
         </div>
 
-        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
-        {/*<button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>*/}
-        <button className="btn btn-danger">全てのイベントを削除する</button>
+        <button className="btn btn-primary" onClick={addEvent} disabled ={unCreatable}>イベントを作成する</button>
+        <button className="btn btn-danger" onClick={deleteAllEvents} disabled={unDeletableAll}>全てのイベントを削除する</button>
 
         <h4>イベント一覧</h4>
         <table className="table table-hover">
