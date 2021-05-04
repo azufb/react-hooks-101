@@ -5,8 +5,6 @@ import AppContext from "../contexts/AppContext";
 import reducer from '../reducers';
 import Events from './Events';
 
-console.log({AppContext});
-
 const App = () => {
   const [state, dispatch] = useReducer(reducer, []);
   // stateは配列を渡す。
@@ -14,10 +12,10 @@ const App = () => {
 
   return (
     /* プロバイダーからvalueを渡す。*/
-    <AppContext.Provider value={'hello, I am a provider'}>
+    <AppContext.Provider value={{ state, dispatch }}>
       <div className="container-fruid">
-        <EventForm state={state} dispatch={dispatch} />
-        <Events state={state} dispatch={dispatch} />
+        <EventForm />
+        <Events />
       </div>
     </AppContext.Provider>
   );
