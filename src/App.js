@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 
-function App() {
+function App(props) {
 
-  const initialStates = {
-    name: '',
-    price: 1000
-  };
-
-  const [name, setName] = useState(initialStates.name);
-  const [price, setPrice] = useState(initialStates.price);
+  const [state, setState] = useState(props); // 状態をオブジェクトで持つこともできる。
+  const { name, price } = state;
 
   function reset() {
-    setPrice(initialStates.price);
-    setName(initialStates.name);
+    setState(props);
   }
 
   return (
     <div>
       <p>現在の{name}は、{price}円です。</p>
-      <button onClick={()=>setPrice(price+1)}>+1</button>
-      <button onClick={()=>setPrice(price-1)}>-1</button>
+      <button onClick={()=>setState({...state, price: price+1})}>+1</button>
+      <button onClick={()=>setState({...state, price: price-1})}>-1</button>
       <button onClick={reset}>Reset</button>
-      <input value={name} onChange={e => setName(e.target.value)} />
+      <input value={state.name} onChange={e => setState({...state, name: e.target.value})} />
     </div>
   );
+}
+
+// 外部からの情報を使う場合。
+App.defaultProps = {
+  name: '',
+  price: 1000
 }
 
 export default App;
