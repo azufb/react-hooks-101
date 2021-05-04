@@ -2,54 +2,26 @@ import React, { useState } from 'react';
 
 function App() {
 
-  const [count, setCount] = useState(0); // 配列を返す。2つの要素を返す。変数と関数(setほにゃらら)。
+  const initialStates = {
+    name: '',
+    price: 1000
+  };
 
-  // 足し算
-  function increment() {
-    setCount(count+1);
-  }
+  const [name, setName] = useState(initialStates.name);
+  const [price, setPrice] = useState(initialStates.price);
 
-  function increment2() {
-    setCount(previousCount => previousCount+1)
-  }
-
-  // 引き算
-  function decrement() {
-    setCount(count-1);
-  }
-
-  // 2倍
-  function double() {
-    setCount(count*2);
-  }
-
-  // resetで、初期値に戻す
   function reset() {
-    setCount(0);
-  }
-
-  // 3の倍数のときだけで3で割る
-  function divide3() {
-    if (count%3 === 0) {
-      setCount(count/3);
-    }
+    setPrice(initialStates.price);
+    setName(initialStates.name);
   }
 
   return (
     <div>
-      <div>count：{count}</div>
-      <button onClick={increment}>+1</button>
-      <button onClick={decrement}>-1</button>
-      <button onClick={double}>×2</button>
-      <div>
-        <button onClick={increment2}>+1</button>
-      </div>
-      <div>
-        <button onClick={reset}>Reset</button>
-      </div>
-      <div>
-        <button onClick={divide3}>3の倍数のときだけ3で割る</button>
-      </div>
+      <p>現在の{name}は、{price}円です。</p>
+      <button onClick={()=>setPrice(price+1)}>+1</button>
+      <button onClick={()=>setPrice(price-1)}>-1</button>
+      <button onClick={reset}>Reset</button>
+      <input value={name} onChange={e => setName(e.target.value)} />
     </div>
   );
 }
