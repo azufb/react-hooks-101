@@ -1,6 +1,7 @@
 import React, { useReducer, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reducer from '../reducers';
+import Event from './Event'
 
 function App() {
 
@@ -8,21 +9,7 @@ function App() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  function addEvent(e) {
-    e.preventDefault();
-    // dispatch関数を呼ぶ。dispatchの引数にactionを渡す。
-    // actionを渡すためには、type属性が必要。
-    dispatch({
-      type: 'CREATE_EVENT',
-      title,
-      body
-    });
-    
-    setTitle('');
-    setBody('');
-  }
-
-  /*const addEvent = e => {
+  const addEvent = e => {
     e.preventDefault();
 
     dispatch({
@@ -33,7 +20,7 @@ function App() {
 
     setTitle('');
     setBody('');
-  }*/
+  }
 
   return (
     <div className="container-fruid">
@@ -51,7 +38,7 @@ function App() {
           {/* labelのhtmlForと、inputタグのidを同じ内容にすることで、labelをクリックすると、inputタグをフォーカスさせられる。*/}
         </div>
 
-        <button className="btn btn-primary" onClick={(e) => addEvent()}>イベントを作成する</button>
+        <button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>
         {/*<button className="btn btn-primary" onClick={addEvent}>イベントを作成する</button>*/}
         <button className="btn btn-danger">全てのイベントを削除する</button>
 
@@ -66,7 +53,7 @@ function App() {
             </tr>
           </thead>
           <tbody>
-
+            {state.map((event, index) => (<Event key={index} event={event} dispatch={dispatch} />))}
           </tbody>
         </table>
       </form>
