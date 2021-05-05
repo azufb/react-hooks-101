@@ -30,7 +30,7 @@ const EventForm = () => {
     }
 
     const unCreatable = title === "" || body === "";
-    const unDeletableAll = state.length === 0;
+    const unDeletableAll = state.events.length === 0;
 
     return (
         <div>
