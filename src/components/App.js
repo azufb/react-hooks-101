@@ -6,7 +6,10 @@ import reducer from '../reducers';
 import Events from './Events';
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, []);
+  const initialState = {
+    events: []
+  }
+  const [state, dispatch] = useReducer(reducer, initialState);
   // stateは配列を渡す。
   // dispatchは、関数と言うデータを渡す。状態(state)を変える手段。
 
